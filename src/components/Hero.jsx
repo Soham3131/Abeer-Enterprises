@@ -90,7 +90,7 @@ export default function Hero() {
             </motion.a>
 
             <motion.a
-              href="https://wa.me/9306617201?text=Hello%2C%20I%20want%20to%20enquire%20about%20a%20product."
+              href="https://wa.me/+919306617201?text=Hello%2C%20I%20want%20to%20enquire%20about%20a%20product."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-4 rounded-full shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl"
