@@ -1,96 +1,145 @@
+// import React, { useState } from 'react';
+// import logo from '../assets/logo.png';
+// import { FaBars, FaTimes } from 'react-icons/fa';
+
+// const Navbar = () => {
+//   const [menuOpen, setMenuOpen] = useState(false);
+
+//   const scrollToContact = () => {
+//     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+//     setMenuOpen(false);
+//   };
+
+//   return (
+//     <nav className="absolute top-0 left-0 w-full z-30 text-white px-6 py-4">
+//       <div className="flex items-center justify-between max-w-7xl mx-auto">
+//         {/* Logo and title */}
+//         <div className="flex items-center space-x-3">
+//           <img src={logo} alt="logo" className="h-[4rem] w-[5rem]" />
+//           <h1 className="text-xl md:text-2xl font-bold tracking-widest uppercase">
+//             Red Ball Cricket Academy
+//           </h1>
+//         </div>
+
+//         {/* Desktop Button */}
+//         <div className="hidden md:block">
+//           <button
+//             onClick={scrollToContact}
+//             className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-red-500 hover:to-orange-500 text-white px-6 py-2 rounded-full font-semibold transition duration-300 shadow-lg"
+//           >
+//             Contact Us
+//           </button>
+//         </div>
+
+//         {/* Mobile Toggle */}
+//         <div className="md:hidden">
+//           <button onClick={() => setMenuOpen(!menuOpen)} className="text-white text-2xl">
+//             {menuOpen ? <FaTimes /> : <FaBars />}
+//           </button>
+//         </div>
+//       </div>
+
+//       {/* Mobile Menu */}
+//       {menuOpen && (
+//         <div className="md:hidden mt-4 bg-black/80 rounded-xl py-4 px-6 text-center shadow-xl">
+//           <button
+//             onClick={scrollToContact}
+//             className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-red-500 hover:to-orange-500 text-white px-6 py-2 rounded-full font-semibold transition duration-300"
+//           >
+//             Contact Us
+//           </button>
+//         </div>
+//       )}
+//     </nav>
+//   );
+// };
+
+// export default Navbar;
+
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { HiMenuAlt3, HiX } from 'react-icons/hi';
-import logo from "../assets/logo1.png";
+import logo from '../assets/logo.png';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
-const links = ['home', 'about', 'products', 'contact'];
+const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
 
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  // Generic scroll function to any section by its ID
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    setMenuOpen(false); // Close menu after clicking a link
+  };
 
   return (
-    <motion.nav
-      className="bg-white shadow-md fixed w-full top-0 z-50"
-      initial={{ y: -60, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6 }}
-    >
-      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-        {/* Logo & Brand */}
-        <div className="flex items-center gap-3">
-          <motion.img
-            src={logo}
-            alt="Abeer Enterprises Logo"
-            className="w-14 h-14 object-cover rounded-full shadow hover:scale-105 transition-transform"
-            whileHover={{ scale: 1.05 }}
-          />
-          <h1 className="text-xl md:text-2xl font-extrabold text-blue-900">Abeer Enterprises</h1>
+    <nav className="absolute top-0 left-0 w-full z-30 text-white px-6 py-4">
+      <div className="flex items-center justify-between max-w-7xl mx-auto">
+        {/* Logo and title */}
+        <div
+          className="flex items-center space-x-3 cursor-pointer"
+          onClick={() => scrollToSection('home')} // Assuming your hero section has id="home"
+        >
+          <img src={logo} alt="Red Ball Cricket Academy Logo" className="h-[4rem] w-[5rem]" />
+          <h1 className="text-xl md:text-2xl font-bold tracking-widest uppercase">
+            Red Ball Cricket Academy
+          </h1>
         </div>
 
-        {/* Desktop Links */}
-        <ul className="hidden md:flex space-x-6 text-gray-700 font-medium">
-          {links.map((link) => (
-            <li key={link}>
-              <a
-                href={`#${link}`}
-                className="relative group hover:text-orange-500 transition-colors"
-              >
-                {link.charAt(0).toUpperCase() + link.slice(1)}
-                <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
-              </a>
-            </li>
-          ))}
-        </ul>
+        {/* Desktop Navigation Links */}
+        <div className="hidden md:flex items-center space-x-8">
+          <button
+            onClick={() => scrollToSection('media-gallery')} // Added link for Media Gallery
+            className="text-white hover:text-orange-400 font-semibold transition duration-300"
+          >
+            Media Gallery
+          </button>
+          <button
+            onClick={() => scrollToSection('contact')}
+            className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-red-500 hover:to-orange-500 text-white px-6 py-2 rounded-full font-semibold transition duration-300 shadow-lg"
+          >
+            Contact Us
+          </button>
+        </div>
 
-        {/* Mobile Menu Icon */}
+        {/* Mobile Toggle Button */}
         <div className="md:hidden">
-          <button onClick={() => setIsOpen(true)} className="text-3xl text-blue-900">
-            <HiMenuAlt3 />
+          <button onClick={() => setMenuOpen(!menuOpen)} className="text-white text-2xl focus:outline-none">
+            {menuOpen ? <FaTimes /> : <FaBars />}
           </button>
         </div>
       </div>
 
-      {/* Sidebar for Mobile */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* Overlay */}
-            <motion.div
-              className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm z-40"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-            />
-
-            {/* Sidebar */}
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "tween", duration: 0.3 }}
-              className="fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 flex flex-col p-6 space-y-6"
-            >
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-lg font-bold text-blue-900">Menu</h2>
-                <button onClick={() => setIsOpen(false)} className="text-2xl text-gray-700">
-                  <HiX />
-                </button>
-              </div>
-              {links.map((link) => (
-                <a
-                  key={link}
-                  href={`#${link}`}
-                  onClick={() => setIsOpen(false)}
-                  className="text-gray-800 font-medium hover:text-orange-500 transition-colors"
-                >
-                  {link.charAt(0).toUpperCase() + link.slice(1)}
-                </a>
-              ))}
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="md:hidden mt-4 bg-black/90 backdrop-blur-md rounded-xl py-6 px-6 text-center shadow-2xl animate-fade-in-down">
+          <ul className="flex flex-col space-y-4">
+            <li>
+              <button
+                onClick={() => scrollToSection('home')} // Assuming your hero section has id="home"
+                className="text-white text-lg font-medium hover:text-orange-400 transition duration-300 w-full py-2 block"
+              >
+                Home
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => scrollToSection('media-gallery')}
+                className="text-white text-lg font-medium hover:text-orange-400 transition duration-300 w-full py-2 block"
+              >
+                Media Gallery
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => scrollToSection('contact')}
+                className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-red-500 hover:to-orange-500 text-white px-8 py-3 rounded-full font-semibold transition duration-300 shadow-lg mt-2 w-full"
+              >
+                Contact Us
+              </button>
+            </li>
+          </ul>
+        </div>
+      )}
+    </nav>
   );
-}
+};
+
+export default Navbar;

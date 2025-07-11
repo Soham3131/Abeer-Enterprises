@@ -1,20 +1,28 @@
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Products from './components/Products';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import React from "react";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import Services from "./components/Services";
+import Gallery from "./components/Gallery";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
+import AcademyInfo from "./components/AcademyInfo";
+import Testimonials from "./components/Testimonials";
+import CricketMoments from "./components/CricketMoments";
 
-export default function App() {
+function App() {
   return (
-    <>
+    <div className="font-classical">
       <Navbar />
       <Hero />
-  
-      <Products />
-          <About />
+      <AcademyInfo/>
+      <CricketMoments/>
+      <Services />
+      <Testimonials/>
+      <Gallery />
       <Contact />
       <Footer />
-    </>
+    </div>
   );
 }
+
+export default App;

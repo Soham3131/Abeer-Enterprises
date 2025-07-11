@@ -1,122 +1,147 @@
-// import React from 'react';
-// import { motion } from 'framer-motion';
-// import heroImage from "../assets/hero.jpg"; // Renamed for clarity, ensure your image path is correct
+// import React, { useEffect, useRef } from 'react';
+//  import background from '../assets/a.jpg';
 
-// export default function Hero() {
+// import gsap from 'gsap';
+
+// const Hero = () => {
+//   const titleRef = useRef(null);
+//   const subtitleRef = useRef(null);
+
+//   useEffect(() => {
+//     // GSAP Timeline for smooth, expensive animation feel
+//     const tl = gsap.timeline({ delay: 1.5 });
+
+//     tl.fromTo(
+//       titleRef.current,
+//       { opacity: 0, y: 50 },
+//       { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' }
+//     ).fromTo(
+//       subtitleRef.current,
+//       { opacity: 0, y: 30 },
+//       { opacity: 1, y: 0, duration: 1, ease: 'power2.out' },
+//       '-=0.6'
+//     );
+//   }, []);
+
 //   return (
-//     <section id="home" className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100 py-24 md:py-32">
-//       {/* Background Gradients/Shapes for visual interest */}
-//       <div className="absolute top-0 left-0 w-64 h-64 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
-//       <div className="absolute bottom-0 right-0 w-64 h-64 bg-orange-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+//     <section id='hero' className="relative w-full h-screen overflow-hidden">
+//       {/* Background with scale animation */}
+//       <div
+//         className="absolute inset-0 bg-cover bg-center animate-scaleUp"
+//         style={{ backgroundImage: `url(${background})` }}
+//       />
 
-//       <div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
-//         {/* Left Section: Text Content */}
-//         <motion.div
-//           initial={{ x: -100, opacity: 0, scale: 0.95 }}
-//           animate={{ x: 0, opacity: 1, scale: 1 }}
-//           transition={{ duration: 1, ease: "easeOut" }}
-//           className="md:w-1/2 text-center md:text-left"
-//         >
-//           <h1 className="text-5xl md:text-6xl font-extrabold text-blue-900 leading-tight mb-6 drop-shadow-md">
-//             <span className="block text-orange-600">Abeer Enterprises:</span> <br /> Precision in Every Roll
-//           </h1>
-//           <p className="text-lg text-gray-700 mb-8 max-w-lg mx-auto md:mx-0">
-//             For over two decades, Abeer Enterprises has been the trusted name in high-quality tape manufacturing. We engineer durable, high-performance adhesive solutions for every industry.
-//           </p>
-//           <motion.a
-//             href="#contact"
-//             className="inline-block bg-orange-600 hover:bg-orange-700 text-white font-semibold px-8 py-4 rounded-full shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl"
-//             whileHover={{ scale: 1.05 }}
-//             whileTap={{ scale: 0.95 }}
-//           >
-//             Discover Our Solutions
-//           </motion.a>
-//         </motion.div>
+//       {/* Overlay */}
+//       <div className="absolute inset-0 bg-black bg-opacity-50 z-10" />
 
-//         {/* Right Section: Image */}
-//         <motion.div
-//           initial={{ x: 100, opacity: 0, scale: 0.95 }}
-//           animate={{ x: 0, opacity: 1, scale: 1 }}
-//           transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-//           className="md:w-1/2 mt-12 md:mt-0 flex justify-center"
+//       {/* Text Content */}
+//       <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
+//         <h1
+//           ref={titleRef}
+//           className="text-white text-5xl md:text-6xl font-extrabold drop-shadow-lg tracking-wide"
 //         >
-//           <img
-//             src={heroImage}
-//             alt="High-quality industrial tapes from Abeer Enterprises"
-//             className="rounded-3xl shadow-2xl w-full max-w-md md:max-w-none transform transition-transform duration-500 hover:scale-102"
-//           />
-//         </motion.div>
+//           <span >Red Ball</span> Cricket Academy
+//         </h1>
+//         <p
+//           ref={subtitleRef}
+//           className="mt-4 text-gray-200 text-xl md:text-2xl tracking-wide"
+//         >
+//           Where Passion Meets Discipline
+//         </p>
 //       </div>
 //     </section>
 //   );
-// }
+// };
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { FaWhatsapp } from 'react-icons/fa';
-import heroImage from "../assets/hero.jpg"; // Ensure the image path is correct
+// export default Hero;
 
-export default function Hero() {
+import React, { useEffect, useRef } from 'react';
+// Assuming the image you uploaded is named 'image_7daca0.jpg' and is in your assets folder
+import background from '../assets/a.jpg';
+import gsap from 'gsap';
+
+const Hero = () => {
+  const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const overlayRef = useRef(null);
+  const backgroundRef = useRef(null);
+
+  useEffect(() => {
+    const tl = gsap.timeline({ delay: 0.8 }); // Slightly reduced initial delay
+
+    // Background animation: subtle scale in
+    tl.fromTo(
+      backgroundRef.current,
+      { scale: 1.03 }, // Start slightly zoomed in
+      { scale: 1, duration: 1.8, ease: 'power2.out' }
+    );
+
+    // Overlay animation: subtle fade-in of the tint
+    tl.fromTo(
+      overlayRef.current,
+      { opacity: 0 },
+      { opacity: 0.5, duration: 1.5, ease: 'power1.out' }, // Adjust opacity to control tint darkness
+      '<' // Starts with the background animation
+    );
+
+    // Title animation: retain previous but with a slightly more pronounced subtle effect
+    tl.fromTo(
+      titleRef.current,
+      { opacity: 0, y: 40 },
+      { opacity: 1, y: 0, duration: 1.3, ease: 'back.out(1.2)' }, // 'back.out' for a subtle overshoot
+      '-=0.7' // Starts slightly before overlay finishes
+    );
+
+    // Subtitle animation: smooth slide up with a gentle fade
+    tl.fromTo(
+      subtitleRef.current,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 1, ease: 'power2.out' },
+      '-=0.5' // Starts slightly before title finishes
+    );
+
+    // Optional: Add a subtle 'sparkle' or 'wave' effect to text on hover
+    // This requires breaking text into characters, which adds complexity.
+    // For now, focusing on initial load animations.
+
+  }, []);
+
   return (
-    <section id="home" className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100 py-24 md:py-32">
-      {/* Background blobs */}
-      <div className="absolute top-0 left-0 w-64 h-64 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
-      <div className="absolute bottom-0 right-0 w-64 h-64 bg-orange-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+    <section id='hero' className="relative w-full h-screen overflow-hidden flex items-center justify-center">
+      {/* Background with scale animation */}
+      <div
+        ref={backgroundRef}
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${background})` }}
+      />
 
-      <div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
-        {/* Left: Text */}
-        <motion.div
-          initial={{ x: -100, opacity: 0, scale: 0.95 }}
-          animate={{ x: 0, opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="md:w-1/2 text-center md:text-left"
+      {/* Overlay - adjusted for a balanced tint over the brighter image */}
+      <div
+        ref={overlayRef}
+        className="absolute inset-0 bg-black"
+        // Adjust the rgba values to fine-tune the tint.
+        // The last value (0.45 here) controls the opacity of the black tint.
+        // A lower value makes it brighter, higher makes it darker.
+        style={{ backgroundColor: 'rgba(0, 0, 0, 0.45)' }}
+      />
+
+      {/* Text Content */}
+      <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
+        <h1
+          ref={titleRef}
+          className="text-white text-5xl md:text-6xl lg:text-7xl font-extrabold drop-shadow-lg tracking-wide leading-tight" // Increased text size for impact
         >
-          <h1 className="text-5xl md:text-6xl font-extrabold text-blue-900 leading-tight mb-6 drop-shadow-md">
-            <span className="block text-orange-600 mt-10">Abeer Enterprises:</span> <br /> Precision in Every Roll
-          </h1>
-          <p className="text-lg text-gray-700 mb-8 max-w-lg mx-auto md:mx-0">
-            For over two decades, Abeer Enterprises has been the trusted name in high-quality tape manufacturing. We engineer durable, high-performance adhesive solutions for every industry.
-          </p>
-
-          {/* Action Buttons */}
-          <div className="flex flex-col md:flex-row gap-4 justify-center md:justify-start">
-            <motion.a
-              href="#contact"
-              className="inline-block bg-orange-600 hover:bg-orange-700 text-white font-semibold px-8 py-4 rounded-full shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Discover Our Solutions
-            </motion.a>
-
-            <motion.a
-              href="https://wa.me/+919306617201?text=Hello%2C%20I%20want%20to%20enquire%20about%20a%20product."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-4 rounded-full shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <FaWhatsapp className="text-xl" />
-              Enquire on WhatsApp
-            </motion.a>
-          </div>
-        </motion.div>
-
-        {/* Right: Image */}
-        <motion.div
-          initial={{ x: 100, opacity: 0, scale: 0.95 }}
-          animate={{ x: 0, opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-          className="md:w-1/2 mt-12 md:mt-0 flex justify-center"
+          <span className="text-red-400">Red Ball</span> Cricket Academy
+        </h1>
+        <p
+          ref={subtitleRef}
+          className="mt-4 text-gray-200 text-xl md:text-2xl lg:text-3xl tracking-wide max-w-2xl" // Increased text size and added max-width
         >
-          <img
-            src={heroImage}
-            alt="High-quality industrial tapes from Abeer Enterprises"
-            className="rounded-3xl shadow-2xl w-full max-w-md md:max-w-none transform transition-transform duration-500 hover:scale-102"
-          />
-        </motion.div>
+          Where Passion Meets Discipline: Forge Your Future.
+        </p>
       </div>
     </section>
   );
-}
+};
+
+export default Hero;
